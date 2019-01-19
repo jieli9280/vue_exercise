@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{msg | fil()}}</p>
+    </div>
+
+    <script src="./node_modules/vue/dist/vue.js"></script>
+
+    <script>
+        // Vue.filter('fil', (msg) => {
+        //     return msg.replace(/猎豹/g, '比亚迪');
+
+        // })
+        const mv = new Vue({
+            el: '#app',
+            data: {
+                msg: '猎豹汽车是我国东风二汽汽车执照，猎豹汽车坐落美丽的星沙，猎豹汽车牛逼'
+            },
+            filters: {
+                fil: function(msg) {
+                    return msg.replace(/猎豹/g, '兰博基尼');
+
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

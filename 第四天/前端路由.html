@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script src="../node_modules/vue-router/dist/vue-router.js"></script>
+</head>
+<style>
+    .v-enter,
+    .v-leave {
+        transform: translateX(150px);
+    }
+    
+    .v-enter-active,
+    .v-leave-active {
+        transition: all .3s;
+    }
+</style>
+
+<body>
+    <!-- Vue作用域 -->
+    <div id="app">
+        <router-link to="/one" tag="a">登录</router-link>
+
+        <router-link to="/tow" tag="a">注册</router-link>
+
+        <!-- 把路由挂载到实例中 -->
+        <transition mode="out-in">
+            <router-view></router-view>
+        </transition>
+    </div>
+
+    <!-- 组件一 -->
+    <template id="template1">
+        <div>
+            <h1>欢迎~~***请注册</h1>
+            <input type="text" name="" id=""><br>
+            <input type="text" name="" id=""><br>
+            <input type="text" name="" id=""><br>
+        </div>
+    </template >
+
+    <!-- 组件二 -->
+    <template id="template">
+        <div>
+                <h1>欢迎~~***请登录</h1>
+                <input type="text" name="" id=""><br>
+                <input type="text" name="" id=""><br>
+                <input type="text" name="" id=""><br>
+        </div>
+    </template>
+
+    <script>
+        const one = {
+            template: "#template1",
+
+        }
+
+        const tow = {
+            template: "#template"
+        }
+
+        const router = new VueRouter({
+            // 实例路由
+            routes: [{
+                // 规则一 一个规则就是一个对象
+                path: '/one',
+                component: one
+            }, {
+                path: '/tow',
+                component: tow
+            }]
+        })
+
+        // 实例一个vue
+        const vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            filters: {},
+            directives: {},
+            router,
+        })
+    </script>
+</body>
+
+</html>

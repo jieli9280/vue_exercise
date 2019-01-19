@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div id="app">
+        <!-- 添加品牌 -->
+        <input type="text" v-model="add" @keyup.enter="addbrand">
+        <input type="button" value="添加品牌" @click="addbrand">
+        <table class="table table-bordered">
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>ctime</th>
+                <th>operation</th>
+            </tr>
+
+            <tr v-for="list in msg" :key="list.id">
+                <td>{{list.id}}</td>
+                <td>{{list.name}}</td>
+                <td>{{list.ctime}}</td>
+                <td> <a href="http://www.baidu.com" @click.prevent="delbrand(list.id)">删除</a>
+
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <!-- <script src="../node_modules/moment/moment.js"></script> -->
+    <script src="../node_modules/vue-resource/dist/vue-resource.js"></script>
+    <script>
+        Vue.http.options.root = 'http://localhost:5000/';
+
+        // 设置全局的post请求第三个参数
+        Vue.http.options.emulateJSON = true;
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: "",
+                add: ""
+            },
+            methods: {
+                // 查询所有汽车品牌
+                getres() {
+                    // this.$http.get是get请求中的固定写法 get后面的参数一为：要请求的地址 如果
+                    this.$http.get("api/getprodlists").then(res => {
+                        // 输出当前请求回来的数据
+                        this.msg = res.body.message;
+
+                        // 参数三：失败的回调函数
+                    }, (err) => {
+                        console.log('查询失败' + err);
+
+                    })
+                },
+
+                // 删除汽车品牌
+                delbrand(id) {
+
+                    console.log(id);
+
+                    this.$http.get("api/delproduct?id=" + id).then(res => {
+                        console.log(res.body);
+                        this.getres();
+                    })
+                },
+
+                addbrand() {
+                    // this.$http.post为固定写法
+                    // 参数一：请求的地址
+                    // 参数二：为一个对象 参数写在对象中
+                    this.$http.post("api/addproduct", {
+                        "name": this.add
+                    }, {
+                        // 设置为普通表单请求 也可以定义为全局的
+                        emulateJSON: true
+                    }).then((res) => {
+                        if (res.body.message == "添加成功") {
+                            this.getres();
+                        }
+                        // 请求失败的回调
+                    }, (err) => {
+                        console.log('数据请求失败');
+
+                    })
+
+                }
+
+            },
+
+            created() {
+                this.getres();
+            }
+        })
+    </script>
+</body>
+
+
+
+</html>

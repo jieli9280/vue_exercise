@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+        <input type="text" v-model="first">
+        <input type="text" v-model="middle">
+        <input type="text" v-model="last">
+        <!-- 不会重复调用 -->
+        <p>{{last}}</p>
+        <p>{{last}}</p>
+        <p>{{last}}</p>
+        <p>{{last}}</p>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                first: "",
+                middle: ""
+            },
+            // 在computed可以定义一些属性 这些属性叫做计算属性  计算属性的本质就是一个方法
+            // 只不过我们在使用的时候 直接拿他的名字当做属性来使用的 并不会当做方法去调用
+            computed: {
+                // 只要计算属性 后面的function内部的值发生变化 就会立即重新计算这个计算属性的值
+
+                // 计算属性的求值结果 会被缓存起来 如果在页面上多次调用 不会重新求值计算
+                'last': function() {
+                    console.log(213);
+
+                    return this.first + this.middle
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

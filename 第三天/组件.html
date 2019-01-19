@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 自定义组件名 -->
+        <my-coml></my-coml>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+
+    <script>
+        //返回一个模板对象       //扩建
+
+
+        // 创建模板组件对象
+        // 参数一 组件名（自定义） 参数二：创建的模板对象
+        // 如果在定义的时候使用了驼峰命名法 则在调用的时候把大写改成小写 多个单词用 “-” 隔开
+
+
+        Vue.component("myComl", Vue.extend({
+            // 定义组件内容
+            template: '<h1>这是一个h1</h1>'
+        }));
+
+        const vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {
+
+            },
+            filters: {
+
+            },
+
+        })
+    </script>
+</body>
+
+</html>

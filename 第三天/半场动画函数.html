@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .ball {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: green;
+    }
+</style>
+
+<body>
+
+    <div id="app">
+        <input type="button" value="切换" @click="flag=!flag" ref="box">
+
+        <!-- 把元素用transition包裹起来 使用哪些方法在这里必须声明-->
+        <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
+
+            <div class="ball" v-show="flag" ref="div"></div>
+
+        </transition>
+        <!-- @beforeEnter="beforeEnter" @enter="enter" @afterEnter="afterEnter" -->
+    </div>
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                flag: false
+            },
+            mounted() {
+                const div = this.$refs.div;
+
+                div.style.width = '100px';
+            },
+            methods: {
+
+                // 动画钩子函数第一个参数 el 表示要执行动画的那个dom元素 是个原生的jS对象
+                beforeEnter: (el) => {
+                    // 表示动画入场之前 此时动画还没开始 可以设置动画开始之间的样式
+                    el.style.transform = "translate(100px,0)";
+                    el.style.transition = "all 5s"
+
+                },
+                // 动画在执行的过程中
+                enter: (el, done) => {
+                    // el.offsetWidth(height,let,right,top,button) 如果设置了动画必须添加该代码 不加设置动画没效果
+                    el.offsetWidth
+
+                    el.style.transform = "translate(500px,550px)";
+
+                    // el.style.transition = "all 5s"
+
+                    el.style.class = "animated zoomIn"
+                        // done 就是afterEnter 必须要调用该函数 不然动画会有延迟消失或者其他问题
+                    done()
+
+                    // 表示动画开始之后的样式 可以设置元素完成之后的结束状态
+                },
+                // 函数名随意起 但是必须有意义
+                afterEnter: function(el) {
+                    // ...
+                    this.flag = false;
+
+                },
+
+            },
+        })
+    </script>
+
+</body>
+
+</html>

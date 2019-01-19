@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        /* 如果想设置自己独有的动画 先把v改成制定的前缀名称 然后在transition上面设置制定的前缀名称即可 */
+        /* 动画进入开始和动画离开结束可看成是一对 可写同样的样式 */
+        /* 进入开始 */
+        
+        .lj-enter,
+        /* 离开结束 */
+        
+        .lj-leave-to {
+            /* 可设置动画的透明度等等 */
+            opacity: 0;
+            transform: translateX(80px);
+        }
+        /* 动画离开开始 */
+        
+        .lj-leave {
+            opacity: 1;
+        }
+        /* 动画进入完成 */
+        
+        .lj-enter-to {
+            opacity: 0.5;
+        }
+        /* 动画离开与动画进入所消耗的时间 */
+        
+        .lj-enter-active,
+        .lj-leave-active {
+            transition: all 0.5s;
+        }
+    </style>
+</head>
+<!-- axios 可以在三大框架使用 （主流） -->
+
+<body>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+    <!-- 设置按钮控制元素 -->
+
+
+
+
+    <!-- 想要实现动画需要使用transition把元素包裹起来 官方提供 -->
+    <!-- 设置请作用的区域 -->
+    <div id="app">
+        <input type="button" value="切换" @click="flag=!flag">
+
+        <transition name="lj">
+            <!-- 给要设置动画的元素 设置显示与隐藏  v-if或者v-show-->
+            <h3 v-if="flag">这是一个h3</h3>
+        </transition>
+    </div>
+
+
+
+
+    <script>
+        const vm = new Vue({
+                el: "#app",
+                data: {
+                    flag: false
+                },
+                methods: {
+
+                },
+
+            })
+            // 为什么要动画
+
+        // 动画进入起始 这是一个时间点 v-enter（此时还没有开始进入）
+        // 动画进入完成之后 v-enter-to
+        // v-enter-active（入场动画所耗的时间）
+
+
+        // 动画离开开始 v-leave
+        // 动画离开终止 这是一个时间点 v-leave-to(此时 动画已经结束)
+        // v-leave-active（离场动画所耗的时间）
+    </script>
+
+</body>
+
+</html>

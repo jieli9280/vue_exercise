@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        .v-enter,
+        .v-leave-to {
+            transform: translate(150px);
+        }
+        
+        .v-enter-active,
+        .v-leave.active {
+            transition: all .5s;
+        }
+    </style>
+</head>
+<!-- Vue引入 -->
+<script src="../node_modules/vue/dist/vue.js"></script>
+<!-- 路由引入 -->
+<script src="../node_modules/vue-router/dist/vue-router.js"></script>
+
+<body>
+
+    <div id="app">
+        <!-- 挂载到实例的作用域中 -->
+        <!-- router-lin 默认生成a标签 
+                     tag 设置以什么标签包裹
+                -->
+        <!-- 参数拼接到请求页面的后面 -->
+        <router-link to="/noe?id=1&name=zs" tag="div">login</router-link>
+        <router-link to="/tow?id=2&name=ls" tag="p">register</router-link>
+
+        <!-- router-view 把路由挂载到实例作用域 -->
+        <transition mobe="out-in">
+            <router-view></router-view>
+        </transition>
+
+
+    </div>
+
+    <!-- 路由怎么传参数？？   插值表达式？？-->
+    <script>
+        // 组件一
+        const noe = {
+                template: "<h1>登录</h1>",
+                data() {
+                    return {
+
+                    }
+                },
+                created() {
+                    console.log(this.$route.query.id);
+                },
+            }
+            // 组件二 
+        const tow = {
+            template: "<h1>注册</h1>",
+            created() {
+                // 接收参数 this.$route.query. 为固定写法 "name"为要拼接的参数
+                console.log(this.$route.query.name);
+
+            },
+        }
+
+        // 声明路由挂载 注册路由
+        const router = new VueRouter({
+
+                routes: [{
+                    // 路径
+                    path: '/noe',
+                    // 组件渲染的内容
+                    component: noe
+                }, {
+                    path: '/tow',
+                    component: tow
+                }],
+
+            })
+            // 声明实例
+        const vm = new Vue({
+            el: '#app',
+            data: {},
+            router,
+            // 与其他私有指令一样 有一个 watch指令 可以监听路由的改变
+            watch: {
+                "$route.path": (newVal, oldVal) => {
+                    if (newVal == "/noe") {
+                        console.log("登陆成功");
+
+                    } else if (newVal == "/tow") {
+                        console.log("注册成功");
+
+                    }
+                }
+            },
+
+        })
+    </script>
+</body>
+
+</html>

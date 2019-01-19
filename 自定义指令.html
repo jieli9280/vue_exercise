@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+
+</style>
+
+<body>
+
+
+    <div id="app">
+        <input type="text" v-color="'blue'">
+
+        <h1 v-color="'red'" v-size="'100'" v-click>{{h}}</h1>
+        <input type="button" v-color="'red'" v-size="'100'" v-click value="按钮">
+    </div>
+    <script src="./node_modules/vue/dist/vue.min.js"></script>
+
+    <script>
+        var mv = new Vue({
+            el: '#app',
+            data: {
+                msg: '只是私有的指令',
+                h: '这是h1'
+            },
+            methods: {
+                add() {
+                    console.log(this);
+                }
+            },
+            // 自定义过滤器
+            filters: {
+                data: function(msg) {
+                    return msg + '==========这是新加的'
+                }
+            },
+            // 声明自定义指令
+            directives: {
+                // 参数一 指令的名称 参数二 回调函数
+                'color': {
+                    // 如果是设置样式 要执行的命令可以写在 bind里面 因为只一写样式 该样式就已经绑定到元素中 不管元素有没有加载出来样式都是存在的
+                    bind(el, binds) {
+
+                        el.style.color = binds.value;
+
+                    },
+                    inserted(el, binds) {
+
+                        el.click(alert('fdgdfgdfdfdfdfdfdfg'));
+                    }
+                },
+
+                'size': function(el, bind) {
+
+                    el.style.fontSize = bind.value + 'px'
+
+                    el.click(alert(123));
+
+
+                }
+            }
+
+        })
+
+
+
+        // // 参数一 指令的名称 在定义的时候指令不需要添加 V 在调用的时候必须添加   v-
+
+        // // 参数二  是一个对象 在这个对象身上有一些指令相关的函数 这些函数在特定的时间执行特定的相关操作 
+        // Vue.directive('color', {
+
+        //     // el 为我把指令绑定到某个元素 这个el就是那个元素 el是一个dom对象 该元素中就是dom中的方法
+
+        //     // bind代表指令后面传过来的参数
+        //     bind: function(el, bind) {
+        //         // 每当指令绑定到元素身上时 会立即执行这个函数 只执行一次
+        //         el.style.color = bind.value;
+
+        //         // 获取该指令的 名字（类型 是一个定义颜色的 还是行为的）
+        //         console.log(bind.name);
+
+        //         // 获取该指令的 值 有可能指令后面带值 我们可以利用这个值 （如果是个表达式获取的则是一个结果）
+        //         console.log(bind.value);
+
+        //         // 获取该指令的值 原样输出
+        //         console.log(bind.expression);
+
+
+        //     },
+        //     inserted: function(el) {
+        //         el.focus()
+        //             // 当dom元素插入的时候执行 只执行一次
+        //     },
+        //     updated: function(el) {
+        //         // 当vnode 更新的时候会执行updated 可能会触发多次
+        //     },
+        // })
+    </script>
+</body>
+
+</html

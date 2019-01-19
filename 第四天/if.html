@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 插值表达式 -->
+
+    <div id="app">
+        <a href="#" @click.prevent="flag=true">登录</a>
+        <a href="#" @click.prevent="flag=false">注册</a>
+        <login v-if="flag"></login>
+        <denglv v-else="flag"></denglv>
+    </div>
+
+
+    <script src="vue/dist/vue.js"></script>
+
+    <script>
+        Vue.component("login", {
+            template: "<h1>登录模块</h1>"
+        })
+
+        Vue.component("denglv", {
+            template: "<h1>注册模块</h1>"
+        })
+
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                flag: true
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 在此次使用组件 -->
+    <div id="div">
+        <mycom></mycom>
+    </div>
+
+
+    <!-- 声明模板 id名为组件template的id名 它是使用id来关联的 -->
+    <template id="temp">
+        <div>
+                <h1>这是我自己写的 对酒当歌人生几何时</h1>
+        </div>
+    </template>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script>
+        // 定义组件 
+        // 参数一 该组件名
+
+        Vue.component("mycom", {
+            // 参数二 组件内容
+            template: "#temp"
+        })
+        const vm = new Vue({
+            el: '#div',
+            data: {},
+
+        })
+    </script>
+</body>
+
+</html>

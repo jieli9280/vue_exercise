@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .lj-enter,
+    .lj-leave-to {
+        opacity: 0;
+        transform: translateX(100px)
+    }
+    
+    .lj-enter-active,
+    .lj-leave-active {
+        transition: all 0.5s;
+    }
+</style>
+
+<body>
+
+    <div id="app">
+        <a href="#" @click.prevent="flag='login'">登录</a>
+        <a href="#" @click.prevent="flag='register'">注册</a>
+        <a href="#" @click.prevent="flag='shopping'">购物车</a>
+
+        <!-- 使用 component标签进行选择 -->
+        <transition mode="out-in" name="lj">
+            <component :is="flag"></component>
+        </transition>
+    </div>
+
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script>
+        Vue.component('login', {
+            template: "<h1>登录页面</h1>"
+        })
+
+        Vue.component('register', {
+            template: "<h1>注册页面</h1>"
+        })
+
+        Vue.component('shopping', {
+            template: "<h1>购物车页面</h1>"
+        })
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                flag: "login",
+            }
+        })
+    </script>
+</body>
+
+</html>

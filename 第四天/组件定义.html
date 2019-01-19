@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+
+
+    <div id="app">
+
+
+        <mytemp></mytemp>
+    </div>
+
+
+    <template id='template'>
+            <div>
+                <!-- 插槽作用域 预留位置-->
+                <slot></slot>
+
+                <h1>这是第三种方法</h1>
+                <p>和前俩种一样都需要一个跟元素{{msg}}</p>
+            </div>
+    </template>
+
+    <script>
+        // 组件中的数据
+        let login = {
+            template: '#template',
+
+            data: () => ({
+                msg: "'<br/>'<div></div>元素"
+            })
+        }
+
+
+        // Vue子组件
+        Vue.component('mytemp', login);
+
+        // 实例Vue
+        const vm = new Vue({
+            el: "#app",
+            data: {},
+        })
+    </script>
+</body>
+
+</html>

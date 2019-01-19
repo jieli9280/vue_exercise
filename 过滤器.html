@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 在函数定义时可以传参数 -->
+        <p>{{msg | filter('保时捷') |test}}</p>
+    </div>
+    <script src="./node_modules/vue/dist/vue.min.js"></script>
+    <script>
+        // 参数一为 过滤器的名称  参数二 要处理的函数回调函数中的形参为要修改的数据
+        Vue.filter('filter', (msg, text) => {
+
+            // 字符串 replace中第一个参数为 目标元素(可以是一个正则) 参数二 要替换的元素 
+
+            return msg.replace(/宝沃/g, text);
+        })
+
+        Vue.filter('test', (msg) => {
+            return msg + '我要买保时捷保时捷'
+        })
+
+        const mv = new Vue({
+            el: '#app',
+            data: {
+                msg: '宝沃是一台中高端车，宝沃生产基地位于德国柏林，1977年宝沃开始生产汽车'
+            },
+            methods: {
+
+            },
+        })
+    </script>
+</body>
+
+</html>

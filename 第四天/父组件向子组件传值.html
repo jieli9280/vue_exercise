@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <comp :obj="obj"></comp>
+
+    </div>
+
+    <template id="template">
+        <div>
+            <h1>父组件向子组件传数据</h1>
+
+            <p v-for="item in obj">{{item}}</p>
+        </div>
+    </template>
+
+    <script src="vue/dist/vue.js"></script>
+
+    <script>
+        const comp = {
+            template: "#template",
+
+            props: {
+                obj: {
+                    type: Object
+                }
+            }
+
+        }
+
+        new Vue({
+            el: "#app",
+            data: {
+                obj: {
+                    name: "张三",
+                    age: "18",
+                    gender: "男"
+                }
+            },
+            methods: {
+
+            },
+            filters: {},
+            directives: {},
+            components: {
+                comp
+            }
+        })
+    </script>
+</body>
+
+</html>

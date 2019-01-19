@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <div id="app">
+        <!-- 子组件默认不能调用父组件中的方法 但是我们可以通过 v-on(父组件方法名)的方法绑定到子组件身上去 -->
+        <fun v-on:meth="show"></fun>
+    </div>
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+
+    <template id="temp">
+        <div>
+            <h1>这是子组件</h1>
+            <!-- 当点击子组件身上的 myclick方法时就会调用自身的方法 -->
+            <input type="button" value="点击调用子组件自定义的方法" @click="myclick">
+        </div>
+    </template>
+
+    <script>
+        // var obj = {
+        //     template: "#temp"
+        // }
+        new Vue({
+            el: "#app",
+            data: {
+                mydata: null,
+            },
+            methods: {
+                // 找到父组件身上的方法然后在输出
+                show(data) {
+                    // console.log('调用了父组件中的方法' + data);
+                    this.mydata = data;
+                    console.log(data);
+
+                }
+            },
+
+            components: {
+                fun: {
+                    template: "#temp",
+                    data() {
+                        return {
+                            son: {
+                                name: "子组件",
+                                age: 18
+                            }
+                        }
+                    },
+                    methods: {
+                        // 方法触发时 会根据子组件传递过来的参数去找该方法
+                        myclick() {
+                            // 触发的意思
+                            // 可以在调用父组件方法时可以传参数 
+                            this.$emit('meth', this.son);
+                        }
+                    },
+                    // obj
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

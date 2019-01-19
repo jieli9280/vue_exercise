@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <soncom @data="parse"></soncom>
+    </div>
+
+    <template id="template">
+
+            <div>
+                <h1>子组件向父组件传递数据</h1>
+                <input type="button" value="子组件" @click="son">
+            </div>
+            
+        </template>
+
+    <!-- 引入Vue -->
+    <script src="vue/dist/vue.js"></script>
+    <script>
+        const soncom = {
+            template: "#template",
+
+            data: () => {
+                return {
+                    num: {
+                        name: "孙权",
+                        age: "18",
+                        gender: "男"
+                    }
+                }
+            },
+            methods: {
+                son() {
+                    this.$emit('data', this.num);
+                }
+            },
+        }
+
+        // 实例一个Vue 也是一个组件
+        new Vue({
+            el: "#app",
+            data: {},
+            methods: {
+                parse(data) {
+                    console.log('data', data);
+
+                }
+            },
+            // 过滤器
+            filters: {},
+            // 指令
+            directives: {},
+            // 组件
+            components: {
+                soncom
+            },
+
+        })
+    </script>
+</body>
+
+</html>

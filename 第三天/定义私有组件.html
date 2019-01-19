@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 使用组件 -->
+    <div id="app">
+        <login></login>
+    </div>
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+    <!-- 通过id光联模板 -->
+    <template id="temp">
+            <div>
+                    <h1>这是定义了私有组件</h1>
+            </div>
+        </template>
+    <script>
+        const vm = new Vue({
+            //  起作用的区域
+            el: '#app',
+            // 数据
+            data: {},
+            //    方法
+            methods: {
+
+            },
+            //    私有过滤器
+            filters: {
+
+            },
+            //    自定义指令
+            directives: {
+
+            },
+            // 自定义私有组件
+            components: {
+                // 组件名
+                login: {
+                    // 组件模板/内容
+                    template: "#temp"
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

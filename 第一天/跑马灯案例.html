@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <div id='div'>
+
+        <input type="button" value='点击开始' @click="show">
+        <input type="button" value='结束' @click='stsp'>
+        <h4>{{nsg}}</h4>
+    </div>
+
+    <!-- 当我们导入包以后再浏览器的内存中 就多了一个vue构造函数 -->
+    <script src="./node_modules/vue/dist/vue.min.js"></script>
+
+    <script>
+        // 我们new出来的这个vm对象就是我们MVVM中的 vm调度者
+        var vm = new Vue({
+
+            el: '#div', //表示当前我们new的这个vue实例 要控制页面上的哪个区域
+            // data属性中 存放的是el中药用到的数据 data就是mvvm中的M专门用来保存数据
+            data: {
+                // 通过nve提供的指令 很方便的就能把数据渲染到页面上 不在需要操作dom元素
+                nsg: '不忘初心，烦得始终.....',
+                setId: null
+            },
+            // 把所有的事件写在methods里面
+            methods: {
+
+                show() {
+                    if (this.setId) return;
+                    this.setId = setInterval(() => {
+                        var start = this.nsg.substring(0, 1);
+
+                        var end = this.nsg.substring(1);
+
+                        this.nsg = end + start
+                    }, 100)
+                },
+                stsp() {
+                    clearInterval(this.setId);
+                    this.setId = null;
+                }
+            },
+
+        })
+    </script>
+</body>
+
+</html>

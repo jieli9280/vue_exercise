@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <mycol2></mycol2>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+    <script>
+        Vue.component('mycol2', {
+            // 如果要使用多个元素并且平级 必须要使用一个父盒子包裹起来 必须要有结束标签
+            template: '<div><h3>这是一个3</h3><span>这是一个span</span></div>'
+
+        })
+
+        const vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {
+
+            },
+        })
+    </script>
+</body>
+
+</html>

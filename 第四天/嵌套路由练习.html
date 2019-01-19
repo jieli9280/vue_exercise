@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- Vue引入 -->
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <!-- 路由引入 -->
+    <script src="../node_modules/vue-router/dist/vue-router.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 渲染父组件的区域 -->
+        <router-link to="/parent" tag="a">列表</router-link>
+        <!-- 把路由挂载到实例中 -->
+        <router-view></router-view>
+    </div>
+    <template id="parent">
+            <div>
+                <!-- 把子组件嵌套在父组件的渲染区域 -->
+                <router-link to="/one" tag="a">登录</router-link>
+                <router-link to="/tow" tag="a">注册</router-link>
+                <!-- 此渲染区域是渲染子组件的 必须得有 -->
+                <router-view></router-view>
+            </div>
+     </template>
+
+    <!-- 子组件一 -->
+
+    <script>
+        // 父组件
+        const parent = {
+                template: "#parent",
+
+            }
+            // 子组件一
+        const one = {
+                template: '<h1>亲~请登录</h1>',
+            }
+            // 子组件二
+        const tow = {
+            template: '<h1>亲~请注册</h1>',
+        }
+
+        // 实例路由
+        const router = new VueRouter({
+            // 路由规则
+            routes: [{
+                path: "/parent",
+                component: parent,
+                // 如果组件中还有组件 则需要把子组件用 children声明 
+                children: [
+                    //每一个子组件就是一个对象 
+                    {
+                        path: "/one",
+                        component: one,
+                    }, {
+                        path: "/tow",
+                        component: tow
+                    }
+                ]
+            }]
+
+        })
+
+        // 实例Vue对象
+        new Vue({
+            el: '#app',
+            data: {},
+            router
+        })
+    </script>
+</body>
+
+</html>

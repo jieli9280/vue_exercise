@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    h1 {
+        display: inline;
+        margin-right: 10px;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <a href="#" @click.prevent="flag=true">{{login}}</a>
+        <a href="#" @click.prevent="flag=false">{{register}}</a><br>
+        <register v-if="flag"></register>
+        <login v-else="flag"></login>
+    </div>
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+
+
+
+    <script>
+        Vue.component('login', {
+            template: "<h1>登录页面</h1>",
+            data: function() {
+                return {
+                    msg: ''
+                }
+            }
+        })
+
+        Vue.component('register', {
+            template: "<h1>注册页面</h1>",
+            data: function() {
+                return {
+                    msg: ''
+                }
+            }
+        })
+
+
+
+
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                login: '注册',
+                register: '登录',
+                flag: true
+            },
+            methods: {
+
+            },
+            filters: {},
+            directives: {},
+
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../node_modules/animate.css/animate.css">
+    <title>Document</title>
+    <style>
+        li {
+            list-style: none;
+            line-height: 30px;
+            font-size: 12px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+        /* 没有添加这个样式为什么会有效果 */
+        /* 设置入场和出场动画 */
+        
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translate(80px, 100px);
+            transform: scale(10, 2);
+            transform: rotate(9000deg);
+        }
+        /* 入场动画和出场动画的运动曲线和时间 */
+        
+        .v-enter-active,
+        .v-leave-active {
+            transition: all 5s ease;
+        }
+        /* 一般都是固定写法 */
+        /* v-move配合 v-leave-active使用 */
+        
+        .v-move {
+            transition: all 5s ease;
+            transform: rotate(9000deg);
+        }
+        /* 当前元素的上一个兄弟元素消失 平缓过渡 */
+        
+        .v-leave-active {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        id: <input type="text" v-model="id"> name: <input type="text" v-model="name">
+
+        <input type="button" value="添加" @click="show">
+
+        <!-- 页面一加载实现动画 appear(可以自动以样式)  tag设置要以什么标签渲染-->
+        <transition-group tag="div">
+
+            <li v-for="(item,index) in list" :key="item.id" @click="del(index)">
+                {{item.id}}======{{item.name}}
+            </li>
+
+        </transition-group>
+
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+    <!-- 在实现列表过度的时候 如果需要过度元素 需要使用 <transition-group>
+    
+    </transition-group> -->
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                id: "",
+                name: "",
+                list: [{
+                    id: 1,
+                    name: '宝马'
+                }, {
+                    id: 2,
+                    name: '奥迪'
+                }, ]
+            },
+            methods: {
+                show() {
+                    this.list.push({
+                        id: this.id,
+                        name: this.name
+                    })
+                },
+                del(id) {
+                    // 删除功能
+                    this.list.splice(id, 1);
+
+                }
+
+            },
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+    <!-- 设置vue作用域 -->
+    <div id="app">
+
+        <!-- 请输入id -->
+        <label for="">
+            id: <input type="text" v-model="id">
+        </label>
+        <!-- 请输入名字 -->
+        <label for="">
+            name: <input type="text" v-model="name"  @keyup.f2="add">
+        </label>
+        <label for="">
+            
+         <!-- 添加按钮 -->
+         <input type="button" value="添加" @click="add">
+
+       </label>
+
+        <!-- 查询关键字 -->
+        <label for="">
+           <!-- 请输入关键字 <input type="text" v-model="keywords"> -->
+           请输入关键字 <input type="text" v-model="keywords" v-color="'green'" >
+        </label>
+
+        <!-- v-model -->
+        <table class="table table-bordered">
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>time</th>
+                <th>operation</th>
+            </tr>
+
+            <tr v-for="(item,i) in search(keywords)" :key="item.id">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <!-- 过滤器 -->
+                <td>{{item.time |times() }}</td>
+                <!-- 删除按钮 -->
+                <td><a href="#" @click.prevent="del(i)">删除</a></td>
+                <!--item.id-->
+            </tr>
+        </table>
+    </div>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <script src="./node_modules/moment/moment.js"></script>
+
+    <script>
+        Vue.config.keyCodes.f2 = 113;
+
+        const mv = new Vue({
+            el: '#app',
+            data: {
+                id: '',
+                name: '',
+                keywords: '',
+                list: [{
+                    id: '1',
+                    name: '宝马',
+                    time: ''
+                }, {
+                    // includes  filter
+                    id: '2',
+                    name: '保时捷',
+                    time: new Date()
+                }]
+            },
+            methods: {
+                // 当点击添加按钮调用此方法
+                add() {
+                    // 获取当前list数据把用户新输入的数据组成对象push到数组中
+                    this.list.push({
+                        id: this.id,
+                        name: this.name,
+                        time: ''
+                    });
+                    this.id = this.name = '';
+                },
+
+                del(id) {
+                    // 方法式二 直接获取当前的索引 
+                    this.list.splice(id, 1);
+
+                    // 方法二 把当前的id传递过来 循环数组中索引的元素如果id值匹配则就删除
+                    // this.list.forEach(element => {
+                    //     if (id == element.id) {
+                    //         this.list.splice(element.id - 1, 1);
+                    //     }
+
+                    // });
+
+                },
+                // 根据关键字搜索内容
+                search(keywords) {
+                    // 声明一个新数组
+                    var newlist = [];
+                    // 循环数组
+                    this.list.map(function(n) {
+
+                        // 判断数组中的每一项是否与搜索关键字匹配
+                        if (n.name.includes(keywords)) {
+                            // 如果匹配就把这一组数据追加到新数组中
+                            newlist.push(n);
+                        }
+                    });
+                    // 把新数组放回
+                    return newlist;
+
+                },
+            },
+            // 过滤器
+            filters: {
+                times: function() {
+                    return moment().format('YYYY-MM-DD HH:mm:ss')
+                }
+            },
+            // 自定义指令
+            directives: {
+                'color': {
+                    bind(el, binds) {
+                        el.style.color = binds.value;
+
+                    },
+                    inserted(el) {
+                        el.focus()
+                    }
+                },
+
+            }
+
+        })
+    </script>
+</body>
+
+</html>
